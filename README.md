@@ -14,11 +14,16 @@ Repositorio para la practica de DCA de sistemas de control de versiones
   - `cm`: `commit -m`
 
 ## Uso de git bisect
-1. Inicié la búsqueda con `git bisect start`.
-2. Marqué el commit con el error como `git bisect bad`.
-3. Marqué un commit bueno previo como `git bisect good`.
-4. Seguí el proceso hasta identificar el commit defectuoso.
-5. Finalicé con `git bisect reset`.
+
+- Inicialicé el proceso con `git bisect start`.
+- Marqué el commit actual como malo (`git bisect bad`) y un commit previo funcional como bueno (`git bisect good 403f51842188595951eb9e07eabad526988ec26e`).
+- Probé cada commit con `python main.py`:
+  - Si el resultado era correcto, usé `git bisect good`.
+  - Si el resultado era incorrecto, usé `git bisect bad`.
+- Identifiqué el commit defectuoso con hash `8ff41f787dccab64c216798df07c302135d36aee`.
+- Finalicé el proceso con `git bisect reset`.
+- Añadí un nuevo commit con los cambios para solucionar el error y el proceso en el readme.
+
 
 ## Uso del hook
 - Configuré un hook pre-commit en `.git/hooks/pre-commit` para imprimir un mensaje al intentar un commit.
