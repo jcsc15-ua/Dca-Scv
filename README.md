@@ -1,5 +1,7 @@
 # Dca-Scv
 Repositorio para la practica de DCA de sistemas de control de versiones
+### Enlace del repositorio:
+https://github.com/jcsc15-ua/Dca-Scv.git
 
 # Proyecto Prueba con Git
 
@@ -27,4 +29,26 @@ Repositorio para la practica de DCA de sistemas de control de versiones
 
 ## Uso del hook
 - Configuré un hook pre-commit en `.git/hooks/pre-commit` para imprimir un mensaje al intentar un commit.
+![alt text](<Captura de pantalla 2024-12-26 a las 13.16.40.png>)
 
+### Contenido de .git/hooks/pre-commit:
+```
+#!/bin/bash
+echo "Ejecutando comprobación 1: Validar sintaxis de Python"
+FILES=$(git diff --cached --name-only --diff-filter=ACM | grep '\.py$')
+
+for file in $FILES; do
+    if ! python -m py_compile "$file"; then
+        echo "Error de sintaxis en $file"
+        exit 1
+    fi
+done
+
+echo "Ejecutando comprobación 2: Validar que los commits no contengan palabras prohibidas"
+if git diff --cached | grep -i "palabra-prohibida"; then
+    echo "Error: Se detectó una palabra prohibida en los cambios."
+    exit 1
+fi
+
+echo "Todas las comprobaciones pasaron. Commit permitido."
+```
