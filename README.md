@@ -52,3 +52,5 @@ fi
 
 echo "Todas las comprobaciones pasaron. Commit permitido."
 ```
+### Dar los permisos al hook
+chmod +x .git/hooks/pre-commit
